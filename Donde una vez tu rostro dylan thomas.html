@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Donde una vez tu rostro - Dylan Thomas</title>
+</head>
+
+<body>
+
+    <canvas id="canvas" width="1000" height="1000"></canvas>
+
+    <script>
+
+        var canvas = document.getElementById("canvas");
+        var ctx = canvas.getContext("2d");
+
+        var contador = 1;
+
+
+
+var versos = ["No te irás sin un beso, mi bien, mi único, mi amor", "Enfuerécete contra el silencio de la luz", "No me des más esperanza, amor, no me des más esperanza", "Donde una vez las aguas de tu rostro",
+"giraron impulsadas por mis hélices, sopla tu áspero fantasma,",
+"los muertos alzan la mirada;",
+"donde un día asomaron el pelo los tritones",
+"a través de tu hielo, el viento áspero navega",
+"por la sal, la raíz, las huevas de los peces.",
+
+"Donde una vez tus verdes nudos hundieron su atadura",
+"en el cordón de la marea, allí camina ahora",
+"el vegetal destejedor,",
+"con tijeras filosas, empuñando el cuchillo",
+"para cortar los canales en su origen",
+"y derribar los frutos empapados.",
+
+"Invisibles, tus mareas medidoras del tiempo",
+"irrumpen en las camas galantes de las algas;",
+"el alga del amor se vuelve mustia;",
+"allí en torno a tus piedras",
+"sombras de niños van, que desde su vacío",
+"lloran ante el mar colmado de delfines.",
+
+"Secos como la tumba, tus coloreados párpados",
+"no serán aherrojados mientras la magia se deslice",
+"sabia sobre el cielo y la tierra;",
+"habrá corales en tus lechos,",
+"habrá serpientes en tus mareas,",
+"hasta que mueran todos nuestros juramentos del mar."];
+setInterval(function () {
+            ctx.clearRect(0, 0, 0, 0);
+            var x = Math.floor(Math.random() * 1000);
+            var y = Math.floor(Math.random() * 1000);
+            var tamano = Math.floor(Math.random() * 100);
+var color = "rgb(" + Math.floor(Math.random() * 256) + "," + Math.floor(Math.random() * 256) + "," + Math.floor(Math.random() * 256) + ")";
+ctx.fillStyle = color;
+ctx.fillRect(x, y, tamano, tamano);
+while (hayTextoEnPosicion(x, y, tamano)) {
+x = Math.floor(Math.random() * 1500);
+y = Math.floor(Math.random() * 1500);
+}
+var verso = versos[Math.floor(Math.random() * versos.length)];
+var fuentes = ["Arial", "Verdana", "Helvetica", "Times New Roman"];
+var tamanoFuente = Math.floor(Math.random() * 20 + 10);
+ctx.font = tamanoFuente + "px " + fuentes[Math.floor(Math.random() * fuentes.length)];
+ctx.fillStyle = "black";
+ctx.fillText(verso, x + tamano/2 , y + tamano/2);
+contador++;
+if (contador % (50000 / 30) == 0 && contador < 100) {
+ctx.fillRect(x, y, tamano, tamano);
+}
+if(contador >= 20) {
+contador = 1;
+}
+}, 30);
+
+function hayTextoEnPosicion(x, y, tamano) {
+var imageData = ctx.getImageData(x, y, tamano, tamano);
+var data = imageData.data;
+for (var i = 0; i < data.length; i += 4) {
+if (data[i + 3] > 0) {
+return true;
+}
+}
+return false;
+}
+         </script>
+</body>
+
+</html>
+
+        
